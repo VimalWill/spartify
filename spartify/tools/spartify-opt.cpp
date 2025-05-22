@@ -1,9 +1,10 @@
 #include "spartify/tools/spartify-opt.h"
 
-int mlir::spartify_compiler::runSpartifyMain(int agrc, char **argv) {
+int main(int argc, char **argv) {
   mlir::DialectRegistry registry;
-  registry.insert<mlir::sparse_tensor::SparseTensorDialect>();
-
+  registry.insert<mlir::func::FuncDialect>();
   mlir::MLIRContext context(registry);
-  return 0;
+
+  return mlir::asMainReturnCode(
+      mlir::MlirOptMain(argc, argv, "sparity-compiler", registry));
 }
