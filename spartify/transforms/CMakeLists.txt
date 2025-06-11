@@ -3,17 +3,23 @@ mlir_tablegen(passes.h.inc --gen-pass-decls)
 
 add_public_tablegen_target(MLIRSpartifyTransformsIncGen)
 
+get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
+
 add_mlir_library(SpartifyPasses
-  passes.cpp
+  passes.cpp 
   SpartifyConvertToSparse.cpp
 
+  ADDITIONAL_HEADER_DIRS
+  ${MLIR_MAIN_INCLUDE_DIR}
+  
   DEPENDS
   MLIRSpartifyTransformsIncGen
-
+  
   LINK_LIBS PUBLIC
   MLIRIR
   MLIRPass
   MLIRTransformUtils
+  ${dialect_libs} 
 )
 
 target_include_directories(SpartifyPasses
