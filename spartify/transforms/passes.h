@@ -5,6 +5,8 @@
 
 #include "mlir/Dialect/SparseTensor/Transforms/Passes.h"
 #include "mlir/Dialect/SparseTensor/IR/SparseTensor.h"
+#include "mlir/Dialect/Bufferization/IR/Bufferization.h"
+#include "mlir/Dialect/Bufferization/Transforms/Passes.h"
 namespace mlir::spartify_compiler {
 std::unique_ptr<Pass> createSpartifyConvertToSparsePass();
 void spartifyCodegenPassPipeline(mlir::OpPassManager& pm); 
