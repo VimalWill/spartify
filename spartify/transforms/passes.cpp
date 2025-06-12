@@ -4,6 +4,8 @@ namespace mlir::spartify_compiler {
 
 void spartifyCodegenPassPipeline(mlir::OpPassManager& pm) {
   pm.addNestedPass<func::FuncOp>(createSpartifyConvertToSparsePass()); 
+  pm.addPass(mlir::createCanonicalizerPass());
+  pm.addPass(mlir::createSCCPPass());
 }
 
 void registerSpartifyPasses() {
