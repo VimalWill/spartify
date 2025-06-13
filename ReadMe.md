@@ -1,5 +1,10 @@
 ## Spartify
-MLIR-based compiler with the focuse to handle semi-sparse tensor layout and to code-generate targeting **Nvidia's Sparse-Tensor Core**
+MLIR-based compiler to exploit the essence of sparsity to improve the performance in the modern-day GPUs via PTX & SPIRV
+
+![Spartify-Stack](docs/spartify.png "Spartify-Stack")
+
+## Supported Sparse Structure
+- support for N:M (2:4) Structured Sparsity
 
 ## Build Instruction 
 ```

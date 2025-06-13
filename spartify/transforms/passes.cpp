@@ -16,7 +16,8 @@ void spartifyCodegenPassPipeline(mlir::OpPassManager& pm) {
 
   pm.addPass(mlir::createStorageSpecifierToLLVMPass()); 
   pm.addPass(mlir::createSparseTensorConversionPass()); 
-
+  pm.addPass(mlir::createCanonicalizerPass());
+  pm.addPass(mlir::createCSEPass()); 
 }
 
 void registerSpartifyPasses() {

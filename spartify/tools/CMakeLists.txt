@@ -13,4 +13,7 @@ target_link_libraries(spartify-opt
   ${conversion_libs} 
   MLIROptLib
   SpartifyPasses
+  MLIRSCFToSPIRV
+  
+  
 )

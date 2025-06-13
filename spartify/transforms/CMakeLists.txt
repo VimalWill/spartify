@@ -18,6 +18,10 @@ add_mlir_library(SpartifyPasses
   LINK_LIBS PUBLIC
   MLIRIR
   MLIRPass
+  MLIRSCFToSPIRV
+  MLIRSCFTransforms
+  MLIRSPIRVConversion  # <-- Add this
+  MLIRSPIRVTransforms  # <-- And possibly this
   MLIRTransformUtils
   ${dialect_libs} 
 )

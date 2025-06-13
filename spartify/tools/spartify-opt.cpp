@@ -11,6 +11,7 @@ int main(int argc, char **argv) {
 
   mlir::MLIRContext context(registry);
   mlir::registerAllDialects(registry);
+  mlir::registerAllPasses(); 
 
   // ref: https://llvm.org/devmtg/2024-04/slides/TechnicalTalks/Amini-DeepDiveOnMLIRInternals.pdf
   mlir::arith::registerBufferizableOpInterfaceExternalModels(registry); 

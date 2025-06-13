@@ -12,6 +12,7 @@
 #include "mlir/Dialect/Tensor/Transforms/BufferizableOpInterfaceImpl.h"
 #include "mlir/Dialect/SCF/Transforms/BufferizableOpInterfaceImpl.h"
 #include "mlir/Dialect/SparseTensor/Transforms/BufferizableOpInterfaceImpl.h"
+#include "mlir/Conversion/SCFToSPIRV/SCFToSPIRVPass.h"
 
 #include "mlir/IR/DialectRegistry.h"
 #include "mlir/Tools/mlir-opt/MlirOptMain.h"
@@ -19,6 +20,7 @@
 #include "mlir/Pass/PassManager.h"
 #include "mlir/Transforms/Passes.h"
 #include "mlir/InitAllDialects.h"
+#include "mlir/InitAllPasses.h"
 
 #include "spartify/transforms/passes.h"
 
