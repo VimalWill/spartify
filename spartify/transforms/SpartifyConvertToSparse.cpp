@@ -126,7 +126,7 @@ void SpartifyConvertToSparse::runOnOperation() {
 
   mlir::linalg::populateLinalgNamedOpsGeneralizationPatterns(patterns);
   patterns.add<ConvertToSparsePattern>(context);
-  if (failed(applyPatternsAndFoldGreedily(funcOp, std::move(patterns)))) {
+  if (failed(applyPatternsGreedily(funcOp, std::move(patterns)))) {
     funcOp.emitError("Failed to apply SpartifyConvertToSparse patterns");
     return signalPassFailure();
   }

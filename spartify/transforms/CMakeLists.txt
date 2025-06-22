@@ -8,6 +8,7 @@ get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
 add_mlir_library(SpartifyPasses
   passes.cpp 
   SpartifyConvertToSparse.cpp
+  SpartifyGenericConversion.cpp
 
   ADDITIONAL_HEADER_DIRS
   ${MLIR_MAIN_INCLUDE_DIR}
