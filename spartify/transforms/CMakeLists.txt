@@ -9,6 +9,7 @@ add_mlir_library(SpartifyPasses
   passes.cpp 
   SpartifyConvertToSparse.cpp
   SpartifyGenericConversion.cpp
+  SpartifyTileAndFuse.cpp
 
   ADDITIONAL_HEADER_DIRS
   ${MLIR_MAIN_INCLUDE_DIR}

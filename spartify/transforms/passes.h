@@ -17,6 +17,7 @@
 namespace mlir::spartify_compiler {
 std::unique_ptr<Pass> createSpartifyConvertToSparsePass();
 std::unique_ptr<Pass> createSpartifyGenericConversionPass(); 
+std::unique_ptr<Pass> createSpartifyTileAndFusePass(); 
 void spartifyCodegenPassPipeline(mlir::OpPassManager& pm, bool isSparse = true); 
 
 namespace {
