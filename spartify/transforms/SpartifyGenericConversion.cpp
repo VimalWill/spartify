@@ -1,10 +1,10 @@
 #include "spartify/transforms/passes.h"
 
-#include "mlir/IR/PatternMatch.h"
-#include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 #include "mlir/Dialect/Linalg/IR/Linalg.h"
 #include "mlir/Dialect/Linalg/IR/LinalgInterfaces.h"
 #include "mlir/Dialect/Linalg/Passes.h"
+#include "mlir/IR/PatternMatch.h"
+#include "mlir/Transforms/GreedyPatternRewriteDriver.h"
 
 namespace mlir::spartify_compiler {
 #define GEN_PASS_DEF_SPARTIFYGENERICCONVERSION
@@ -20,19 +20,30 @@ public:
 
 void SpartifyGenericConversion::runOnOperation() {
   auto funcOp = cast<func::FuncOp>(getOperation());
-  if (!funcOp) return; 
+  if (!funcOp)
+    return;
 
-  MLIRContext *ctx = &getContext(); 
-  RewritePatternSet patterns(ctx); 
+  SmallVector<linalg::LinalgOp> initalGenericCandidate;
+  funcOp->walk([&](linalg::LinalgOp linalgOp) {
+    if (!linalg::isaContractionOpInterface(linalgOp) &&
+        !isa<linalg::MatmulOp>(linalgOp)) {
+      initalGenericCandidate.push_back(linalgOp); 
+    }
+  });
 
-  mlir::linalg::populateLinalgNamedOpsGeneralizationPatterns(patterns); 
-  if (failed(applyPatternsGreedily(funcOp, std::move(patterns)))) {
-    funcOp.emitError("Failed to apply SpartifyGenericConversion patterns"); 
-    return signalPassFailure(); 
+  IRRewriter rewriter(&getContext());
+  for (auto candidate : initalGenericCandidate) {
+    rewriter.setInsertionPoint(candidate);
+    FailureOr<linalg::GenericOp> generizedOp =
+        linalg::generalizeNamedOp(rewriter, candidate);
+    if (failed(generizedOp)) {
+      candidate->emitError("unable to lower to generic op");
+      return signalPassFailure();
+    }
   }
 }
 
 std::unique_ptr<Pass> createSpartifyGenericConversionPass() {
-    return std::make_unique<SpartifyGenericConversion>(); 
+  return std::make_unique<SpartifyGenericConversion>();
 }
 } // namespace mlir::spartify_compiler

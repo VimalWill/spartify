@@ -13,7 +13,7 @@ def SpartifyGenericConversion : Pass<"spartify-generic-conversion", "" > {
     let constructor = "mlir::spartify_compiler::createSpartifyGenericConversionPass()"; 
 }
 
-def SpartifyTileAndFuse : Pass<"spartify-tile-and-fuse", "ModuleOp"> {
+def SpartifyTileAndFuse : Pass<"spartify-tile-and-fuse", "func::FuncOp"> {
     let summary = "tile and fuse operations"; 
     let constructor = "mlir::spartify_compiler::createSpartifyTileAndFusePass()"; 
 }

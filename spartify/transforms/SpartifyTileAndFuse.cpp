@@ -1,3 +1,4 @@
+#include "mlir/Interfaces/TilingInterface.h"
 #include "spartify/transforms/passes.h"
 
 namespace mlir::spartify_compiler {
@@ -11,10 +12,23 @@ public:
 };
 } // namespace
 
+auto anyTilableOp(func::FuncOp funcOp) {
+  bool tilable = false;
+  funcOp->walk([&](Operation *op) {
+    if (auto tileInteraface = dyn_cast<TilingInterface>(op)) {
+      tilable = true;
+      llvm::outs() << op->getName() << "\n";
+    }
+  });
+
+  return tilable;
+}
 void SpartifyTileAndFuse::runOnOperation() {
-  auto moduleOp = getOperation();
-  if (!moduleOp)
+  auto funcOp = getOperation();
+  if (!funcOp)
     return;
+
+  anyTilableOp(funcOp); 
 }
 
 std::unique_ptr<Pass> createSpartifyTileAndFusePass() {
