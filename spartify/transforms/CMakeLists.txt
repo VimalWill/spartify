@@ -10,6 +10,7 @@ add_mlir_library(SpartifyPasses
   SpartifyConvertToSparse.cpp
   SpartifyGenericConversion.cpp
   SpartifyTileAndFuse.cpp
+  SpartifyConvertToTransposedMatmulOp.cpp
 
   ADDITIONAL_HEADER_DIRS
   ${MLIR_MAIN_INCLUDE_DIR}
