@@ -25,9 +25,8 @@ void SpartifyGenericConversion::runOnOperation() {
 
   SmallVector<linalg::LinalgOp> initalGenericCandidate;
   funcOp->walk([&](linalg::LinalgOp linalgOp) {
-    if (!linalg::isaContractionOpInterface(linalgOp) &&
-        !isa<linalg::MatmulOp>(linalgOp)) {
-      initalGenericCandidate.push_back(linalgOp); 
+    if (!isa<linalg::MatmulOp>(linalgOp) && !isa<linalg::GenericOp>(linalgOp)) {
+      initalGenericCandidate.push_back(linalgOp);
     }
   });
 
