@@ -18,4 +18,9 @@ def SpartifyTileAndFuse : Pass<"spartify-tile-and-fuse", "func::FuncOp"> {
     let constructor = "mlir::spartify_compiler::createSpartifyTileAndFusePass()"; 
 }
 
+def SpartifyConvertToTransposedMatmulOp : Pass<"spartify-convert-transposed-matmul-op", "func::FuncOp"> {
+    let summary = "convert transpose & matmul op to transposedMatmulOp";
+    let constructor = "mlir::spartify_compiler::createSpartifyConvertToTransposedMatmulOpPass()"; 
+}
+
 #endif // SPARTIFY_TRANSFORMS_PASSES_TD

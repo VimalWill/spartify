@@ -17,7 +17,7 @@ auto anyTilableOp(func::FuncOp funcOp) {
   funcOp->walk([&](Operation *op) {
     if (auto tileInteraface = dyn_cast<TilingInterface>(op)) {
       tilable = true;
-      llvm::outs() << op->getName() << "\n";
+      // llvm::outs() << op->getName() << "\n";
     }
   });
 

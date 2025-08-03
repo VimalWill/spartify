@@ -23,6 +23,12 @@ void spartifyCodegenPassPipeline(mlir::OpPassManager &pm,
   } else {
     pm.addNestedPass<func::FuncOp>(createSpartifyGenericConversionPass());
     pm.addNestedPass<func::FuncOp>(createSpartifyTileAndFusePass()); 
+
+    pm.addNestedPass<func::FuncOp>(createSpartifyConvertToTransposedMatmulOpPass()); 
+    pm.addPass(mlir::createCanonicalizerPass());
+    pm.addPass(mlir::createCSEPass());
+
+    pm.addNestedPass<func::FuncOp>(createSpartifyGenericConversionPass()); 
   }
 }
 
